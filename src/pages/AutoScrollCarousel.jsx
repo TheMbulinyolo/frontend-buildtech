@@ -1,19 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 const products = [
-  { id: 1, title: 'EDITION 1', image: '/src/assets/images/edition/E11.jpeg' },
-  { id: 2, title: 'EDITION 1', image: '/src/assets/images/edition/E12.jpeg' },
-  { id: 3, title: 'EDITION 1', image: '/src/assets/images/edition/E13.jpeg' },
-  { id: 4, title: 'EDITION 1', image: '/src/assets/images/edition/E14.jpeg' },
-  { id: 5, title: 'EDITION 1', image: '/src/assets/images/edition/E15.jpeg' },
-  { id: 6, title: 'EDITION 2', image: '/src/assets/images/edition/E21.jpeg' },
-  { id: 7, title: 'EDITION 2', image: '/src/assets/images/edition/E22.jpeg'  },
-  { id: 8, title: 'EDITION 2', image: '/src/assets/images/edition/E23.jpeg'  },
-  { id: 9, title: 'EDITION 2', image: '/src/assets/images/edition/E24.jpeg'  },
-  { id: 10, title: 'EDITION 2', image: '/src/assets/images/edition/E25.jpeg'  },
-  { id: 11, title: 'EDITION 2', image: '/src/assets/images/edition/E26.jpeg'  },
-  { id: 12, title: 'EDITION 2', image: '/src/assets/images/edition/E27.jpeg'  },
-  { id: 13, title: 'EDITION 2', image: '/src/assets/images/edition/E28.jpeg'  },
+  { id: 1, title: 'EDITION 1', image: '/edition/E11.jpeg' },
+  { id: 2, title: 'EDITION 1', image: '/edition/E12.jpeg' },
+  { id: 3, title: 'EDITION 1', image: '/edition/E13.jpeg' },
+  { id: 4, title: 'EDITION 1', image: '/edition/E14.jpeg' },
+  { id: 5, title: 'EDITION 1', image: '/edition/E15.jpeg' },
+  { id: 6, title: 'EDITION 2', image: '/edition/E21.jpeg' },
+  { id: 7, title: 'EDITION 2', image: '/edition/E22.jpeg'  },
+  { id: 8, title: 'EDITION 2', image: '/edition/E23.jpeg'  },
+  { id: 9, title: 'EDITION 2', image: '/edition/E24.jpeg'  },
+  { id: 10, title: 'EDITION 2', image: '/edition/E25.jpeg'  },
+  { id: 11, title: 'EDITION 2', image: '/edition/E26.jpeg'  },
+  { id: 12, title: 'EDITION 2', image: '/edition/E27.jpeg'  },
+  { id: 13, title: 'EDITION 2', image: '/edition/E28.jpeg'  },
 
 
 ];
