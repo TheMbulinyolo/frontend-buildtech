@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api/'; // Adjust to your Django backend URL
+const API_URL = 'https://backend-modernbuildtech.onrender.com/api/'; // Adjust to your Django backend URL
 
 // Create axios instance with default headers
 const api = axios.create({
