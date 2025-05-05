@@ -194,8 +194,7 @@ const Home = () => {
         <div className='sous_part4'>
           <span><img src={logo_ancien} alt="" /></span>
           <span>
-            <strong>Nous renouvelons notre image pour mieux refléter notre évolution.</strong>
-            <p>Notre nouveau logo représente notre énergie, notre modernité et notre engagement envers vous.</p>
+            <strong>Notre nouveau logo:</strong>
             <img src={logo_nouveau} alt="" />
           </span>
         </div>
@@ -212,7 +211,7 @@ const Home = () => {
               <h1>Adobe Illustrator</h1>
               <p>2 semaines</p>
               <p>Lundi - Vendredi (9h - 12h)</p>
-              <span>50$</span>
+              <span>25$</span>
             </div>
           </div>
 
@@ -252,7 +251,7 @@ const Home = () => {
               <h1>Photoshop</h1>
               <p>2 semaines</p>
               <p>Lundi - Vendredi (9h - 12h)</p>
-              <span>50$</span>
+              <span>25$</span>
             </div>
           </div>
 

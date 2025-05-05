@@ -47,6 +47,17 @@ html, body{
   scroll-behavior: smooth;
 }
 
+body::-webkit-scrollbar-track{
+  background-color: var(--color-2);
+}
+body::-webkit-scrollbar{
+  width: .5rem;
+}
+body::-webkit-scrollbar-thumb{
+  background-color: var(--color-1);
+  border-radius: 1rem;
+}
+
 .Part1{
   overflow: hidden;
   position: relative;
@@ -1041,6 +1052,23 @@ th, td{
     margin-top: 1rem;
   }
   /******************************************************/
+  .Part4{
+    height: fit-content;
+    padding-bottom: 1rem;
+  }
+  .Part4 .sous_part4{height: 60vh;}
+  .Part4 .sous_part4 span:last-child strong {
+    position: relative;
+    top: 3rem;
+    width: 120%;
+    text-align: center;
+  }
+  .Part4 .sous_part4 span:last-child img{
+    width: 100%;
+    margin-top: 5rem;
+  }
+
+  
 
   /******************************************************/
   .Part5{
