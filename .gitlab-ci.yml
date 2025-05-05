@@ -1,0 +1,31 @@
+image: node:20
+
+stages:
+  - install 
+  - build
+  - deploy 
+
+install_dependencies :
+  stage: install
+  script : 
+    - npm install
+  artifacts:
+    paths:
+      - node_modules/
+
+build_app :
+  stage: build
+  script : 
+    - echo "Building app ... "
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+    expire_in: "30 minutes"
+
+deployement : 
+  stage: deploy
+  script: 
+    - echo "Deploiement ..."
+  only : 
+    - production
