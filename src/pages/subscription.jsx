@@ -10,6 +10,7 @@ const Subscription = () => {
     last_name: '',
     email: '',
     phone: '',
+    phone_tuteur:'',
     address: '',
   });
   const [message, setMessage] = useState('');
@@ -33,6 +34,7 @@ const Subscription = () => {
           last_name: '',
           email: '',
           phone: '',
+          phone_tuteur: '',
           address: '',
         });
       }
@@ -68,7 +70,7 @@ const Subscription = () => {
         <Link to="/"><ChevronLeft/></Link>
         <form onSubmit={handleSubmit}>
           <div className='form-group'>
-            <label>Prénom:</label>
+            <label>Prénom du participant:</label>
             <input
               type="text"
               name="first_name"
@@ -78,7 +80,7 @@ const Subscription = () => {
             />
           </div>
           <div className='form-group'>
-            <label>Nom:</label>
+            <label>Nom du participant:</label>
             <input
               type="text"
               name="last_name"
@@ -88,7 +90,7 @@ const Subscription = () => {
             />
           </div>
           <div className='form-group'>
-            <label>Email:</label>
+            <label>Email du participant:</label>
             <input
               type="email"
               name="email"
@@ -98,7 +100,7 @@ const Subscription = () => {
             />
           </div>
           <div className='form-group'>
-            <label>Téléphone:</label>
+            <label>Téléphone du participant:</label>
             <input
               type="tel"
               name="phone"
@@ -108,7 +110,17 @@ const Subscription = () => {
             />
           </div>
           <div className='form-group'>
-            <label>Adresse:</label>
+            <label>Téléphone du responsable:</label>
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className='form-group'>
+            <label>Adresse du participant:</label>
             <textarea
               name="address"
               value={formData.address}
