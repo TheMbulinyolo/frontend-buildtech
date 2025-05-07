@@ -70,7 +70,7 @@ const Home = () => {
           <div className='social_media'>
             <a href="https://www.facebook.com/share/18hRoMfDXZ/?mibextid=wwXIfr" target='blanck'><FacebookIcon/></a>
             <a href="https://www.instagram.com/modern_technologi_of_building?igsh=dDhiM28zZXF4YTlt" target='blanck'><InstagramIcon/></a>
-            <a href="mailto:moderntechnology@constructionformation.com" target='blanck'><Mail/></a>
+            <a href="mailto:moderntechnologyb@gmail.com" target='blanck'><Mail/></a>
           </div>
         </div>
         <div className="ingenieur_img">
