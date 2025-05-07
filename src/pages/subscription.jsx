@@ -28,7 +28,7 @@ const Subscription = () => {
       console.log("Réponse reçue:", response);
       
       if (response.status === 201) {
-        setMessage('Inscription réussie !');
+        setMessage('Inscription réussie ! ✅');
         setFormData({
           first_name: '',
           last_name: '',
@@ -40,7 +40,7 @@ const Subscription = () => {
       }
     } catch (error) {
       console.error("Erreur capturée:", error);
-      let errorMessage = "Erreur lors de l'inscription";
+      let errorMessage = "Erreur lors de l'inscription ❌";
       
       if (error.response) {
         // Erreur venant du serveur
@@ -50,7 +50,7 @@ const Subscription = () => {
         console.error("Détails de l'erreur:", error.response.data);
       } else if (error.request) {
         // La requête a été faite mais aucune réponse reçue
-        errorMessage = "Pas de réponse du serveur - vérifiez votre connexion";
+        errorMessage = "Pas de réponse du serveur - vérifiez votre connexion ⚠️";
         console.error("Pas de réponse:", error.request);
       } else {
         // Erreur lors de la configuration de la requête
@@ -64,7 +64,7 @@ const Subscription = () => {
 
   return (
     <div className='subscription-page'>
-      {message && <div className='message'>{message}bbbbbbbbb</div>}
+      {message && <div className='message'>{message}</div>}
       <div className='subscription'>
         <h1>Formulaire d'inscription</h1>
         <Link to="/"><ChevronLeft/></Link>
