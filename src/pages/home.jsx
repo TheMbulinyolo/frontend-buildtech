@@ -339,7 +339,7 @@ const Home = () => {
             <div className='media'>
               <a href="https://www.facebook.com/share/18hRoMfDXZ/?mibextid=wwXIfr" target='blanck'><FacebookIcon/></a>
               <a href="https://www.instagram.com/modern_technologi_of_building?igsh=dDhiM28zZXF4YTlt" target='blanck'><InstagramIcon/></a>
-              <a href="mailto:moderntechnology@constructionformation.com" target='blanck'><Mail/></a>
+              <a href="mailto:moderntechnologyb@gmail.com" target='blanck'><Mail/></a>
               <a href="https://wa.me/qr/TVCNNS3EE437I1" target='blanck'><Phone/></a>
             </div>
             <p>&copy; 2023 Nom de la Société. Tous droits réservés.</p>
