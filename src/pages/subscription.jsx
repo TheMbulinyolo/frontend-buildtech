@@ -14,6 +14,7 @@ const Subscription = () => {
     address: '',
   });
   const [message, setMessage] = useState('');
+  const [stape , setStape ] = useState(0)
 
   const handleChange = (e) => {
     const { name, value } = e.target;

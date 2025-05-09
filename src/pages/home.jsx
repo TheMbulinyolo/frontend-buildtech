@@ -221,7 +221,7 @@ const Home = () => {
               <h1>Archicad</h1>
               <p>4 semaines</p>
               <p>Lundi - Vendredi (9h - 12h)</p>
-              <span>50$</span>
+              <span>40$</span>
             </div>
           </div>
 
@@ -231,7 +231,7 @@ const Home = () => {
               <h1>AutoCAD</h1>
               <p>4 semaines</p>
               <p>Lundi - Vendredi (9h - 12h)</p>
-              <span>50$</span>
+              <span>25$</span>
             </div>
           </div>
 
@@ -241,7 +241,7 @@ const Home = () => {
               <h1>Lumion</h1>
               <p>4 semaines</p>
               <p>Lundi - Vendredi (9h - 12h)</p>
-              <span>50$</span>
+              <span>35$</span>
             </div>
           </div>
 
@@ -271,7 +271,7 @@ const Home = () => {
               <h1>SketchUp</h1>
               <p>4 semaines</p>
               <p>Lundi - Vendredi (9h - 12h)</p>
-              <span>50$</span>
+              <span>25$</span>
             </div>
           </div>
 
@@ -281,7 +281,7 @@ const Home = () => {
               <h1>V-Ray</h1>
               <p>4 semaines</p>
               <p>Lundi - Vendredi (9h - 12h)</p>
-              <span>50$</span>
+              <span>25$</span>
             </div>
           </div>
         </div>
