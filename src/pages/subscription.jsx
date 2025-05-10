@@ -1,36 +1,71 @@
-import React, { useState } from 'react';
-import { registerParticipant } from '../services/api';
+import maquette from '../assets/images/maquette.png';
+import React, { useState, useCallback } from 'react';
+import { registerParticipant, registerPayement, verifyemail } from '../services/api';
 import { Link } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
-import maquette from '../assets/images/maquette.png';
+import debounce from 'lodash.debounce';
 
 const Subscription = () => {
-  const [formData, setFormData] = useState({
+  const [message, setMessage] = useState('');
+  const [stape, setStape] = useState(1);
+  const [disablePayement, setDisablePayement] = useState(true);
+
+  const [inscriptionForm, setInscriptionForm] = useState({
     first_name: '',
     last_name: '',
     email: '',
     phone: '',
-    phone_tuteur:'',
+    phone_tuteur: '',
     address: '',
   });
-  const [message, setMessage] = useState('');
-  const [stape , setStape ] = useState(0)
 
-  const handleChange = (e) => {
+  const [payementForm, setPayementForm] = useState({
+    email: '',
+    validator: '',
+  });
+
+  // Débouncer pour éviter les appels excessifs à l’API
+  const verifyEmail = useCallback(
+    debounce(async (email) => {
+      try {
+        const res = await verifyemail({ email });
+        if (res.data.status === 'paid') {
+          setMessage("Ce participant a déjà payé ✅");
+          setDisablePayement(true);
+        } else if (res.data.status === 'exist') {
+          setMessage("Participant trouvé. En attente du payement 🟡");
+          setDisablePayement(false);
+        } else {
+          setMessage("Adresse non reconnue ❌");
+          setDisablePayement(true);
+        }
+      } catch {
+        setMessage("Erreur lors de la vérification de l'adresse.");
+        setDisablePayement(true);
+      }
+    }, 500),
+    []
+  );
+
+  const handleChangeInscription = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setInscriptionForm(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleChangePayement = (e) => {
+    const { name, value } = e.target;
+    setPayementForm(prev => ({ ...prev, [name]: value }));
+
+    if (name === 'email') verifyEmail(value);
+  };
+
+  const handleInscriptionSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("Soumission du formulaire avec:", formData);
-      const response = await registerParticipant(formData);
-      console.log("Réponse reçue:", response);
-      
-      if (response.status === 201) {
-        setMessage('Inscription réussie ! ✅');
-        setFormData({
+      const res = await registerParticipant(inscriptionForm);
+      if (res.status === 201) {
+        setMessage("Inscription réussie ✅");
+        setInscriptionForm({
           first_name: '',
           last_name: '',
           email: '',
@@ -38,105 +73,123 @@ const Subscription = () => {
           phone_tuteur: '',
           address: '',
         });
+        setTimeout(() => setStape(2), 1000);
       }
-    } catch (error) {
-      console.error("Erreur capturée:", error);
-      let errorMessage = "Erreur lors de l'inscription ❌";
-      
-      if (error.response) {
-        // Erreur venant du serveur
-        if (error.response.data) {
-          errorMessage = Object.values(error.response.data).flat().join(', ');
-        }
-        console.error("Détails de l'erreur:", error.response.data);
-      } else if (error.request) {
-        // La requête a été faite mais aucune réponse reçue
-        errorMessage = "Pas de réponse du serveur - vérifiez votre connexion ⚠️";
-        console.error("Pas de réponse:", error.request);
+    } catch (err) {
+      if (err.response?.data) {
+        const msg = Object.values(err.response.data).flat().join(', ');
+        setMessage(`Erreur : ${msg}`);
       } else {
-        // Erreur lors de la configuration de la requête
-        errorMessage = "Erreur de configuration de la requête";
-        console.error("Erreur de configuration:", error.message);
+        setMessage("Erreur inconnue lors de l'inscription ❌");
       }
-      
-      setMessage(errorMessage);
+    }
+  };
+
+  const handlePayementSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await registerPayement(payementForm);
+      if (res.status === 200) {
+        setMessage(`Payement validé pour ${res.data.first_name} ${res.data.last_name} ✅`);
+        setPayementForm({ email: '', validator: '' });
+        setDisablePayement(true);
+      }
+    } catch (err) {
+      if (err.response?.data) {
+        const msg = Object.values(err.response.data).flat().join(', ');
+        setMessage(`Erreur : ${msg}`);
+      } else {
+        setMessage("Erreur inconnue lors du payement ❌");
+      }
     }
   };
 
   return (
-    <div className='subscription-page'>
-      {message && <div className='message'>{message}</div>}
-      <div className='subscription'>
-        <h1>Formulaire d'inscription</h1>
-        <Link to="/"><ChevronLeft/></Link>
-        <form onSubmit={handleSubmit}>
-          <div className='form-group'>
-            <label>Prénom du participant:</label>
-            <input
-              type="text"
-              name="first_name"
-              value={formData.first_name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className='form-group'>
-            <label>Nom du participant:</label>
-            <input
-              type="text"
-              name="last_name"
-              value={formData.last_name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className='form-group'>
-            <label>Email du participant:</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className='form-group'>
-            <label>Téléphone du participant:</label>
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className='form-group'>
-            <label>Téléphone du responsable:</label>
-            <input
-              type="tel"
-              name="phone_tuteur"
-              value={formData.phone_tuteur}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className='form-group'>
-            <label>Adresse du participant:</label>
-            <textarea
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              required
-              rows="3"
-            />
-          </div>
-          <button type="submit">Valider l'inscription</button>
-        </form>  
-        <img src={maquette} alt="" />      
-      </div>
+    <div className="subscription-page">
+      {message && <p className="message">{message}</p>}
 
+      <div className="subscription">
+        <div className="step-buttons">
+          <button
+            className={`btn ${stape === 1 ? 'active' : ''}`}
+            onClick={() => setStape(1)}
+          >
+            Inscription
+          </button>
+          <button
+            className={`btn ${stape === 2 ? 'active' : ''}`}
+            onClick={() => setStape(2)}
+          >
+            Payement
+          </button>
+        </div>
+
+        <Link to="/" className="back-link"><ChevronLeft /></Link>
+
+        {stape === 1 ? (
+          <>
+            <h1 className="title">Formulaire d'inscription</h1>
+            <form onSubmit={handleInscriptionSubmit}>
+              <div className="form-group">
+                <label>Prénom</label>
+                <input name="first_name" value={inscriptionForm.first_name} onChange={handleChangeInscription} required />
+              </div>
+              <div className="form-group">
+                <label>Nom</label>
+                <input name="last_name" value={inscriptionForm.last_name} onChange={handleChangeInscription} required />
+              </div>
+              <div className="form-group">
+                <label>Email</label>
+                <input type="email" name="email" value={inscriptionForm.email} onChange={handleChangeInscription} required />
+              </div>
+              <div className="form-group">
+                <label>Téléphone</label>
+                <input name="phone" value={inscriptionForm.phone} onChange={handleChangeInscription} required />
+              </div>
+              <div className="form-group">
+                <label>Téléphone du tuteur</label>
+                <input name="phone_tuteur" value={inscriptionForm.phone_tuteur} onChange={handleChangeInscription} required />
+              </div>
+              <div className="form-group">
+                <label>Adresse</label>
+                <textarea name="address" value={inscriptionForm.address} onChange={handleChangeInscription} required />
+              </div>
+              <button type="submit" className="btn">Continuer</button>
+            </form>
+          </>
+        ) : (
+          <>
+            <h1 className="title">Formulaire de payement</h1>
+            <div className="payement-section">
+              <p>
+                Après vous être inscrit, veuillez envoyer <strong>3$</strong> pour valider votre inscription :
+              </p>
+              <ul>
+                <li><strong>Airtel Money :</strong> +243 972 159 400</li>
+                <li><strong>Orange Money :</strong> +243 846 843 590</li>
+              </ul>
+              <p>
+                Une fois le paiement effectué, remplissez les informations ci-dessous pour valider votre inscription.
+              </p>
+              <form onSubmit={handlePayementSubmit}>
+                <div className="form-group">
+                  <label>Email du participant</label>
+                  <input type="email" name="email" value={payementForm.email} onChange={handleChangePayement} required />
+                </div>
+                <div className="form-group">
+                  <label>Numéro de transaction</label>
+                  <input name="validator" value={payementForm.validator} onChange={handleChangePayement} required />
+                </div>
+                <button type="submit" className="btn" disabled={disablePayement}>Valider le payement</button>
+              </form>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };
 
 export default Subscription;
+
+

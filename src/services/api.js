@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://backend-modernbuildtech.onrender.com/api/'; // Adjust to your Django backend URL
+const API_URL = 'http://localhost:8000/api/'; // Adjust to your Django backend URL
 
 // Create axios instance with default headers
 const api = axios.create({
@@ -37,6 +37,13 @@ api.interceptors.response.use(
 export const registerParticipant = async (data) => {
   return await api.post('participants/create/', data);
 };
+
+export const verifyemail = async (data) => {
+  return await api.post('verifyemail/',data)
+}
+export const registerPayement = async (data) => {
+  return await api.post('participants/validpay/', data);
+}
 
 // Get list of participants
 export const getParticipants = async () => {
