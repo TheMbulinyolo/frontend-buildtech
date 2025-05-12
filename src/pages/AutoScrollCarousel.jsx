@@ -76,7 +76,7 @@ const AutoScrollCarousel = () => {
           display: 'flex',
           overflowX: 'auto',
           scrollBehavior: 'smooth',
-          whiteSpace: 'nowrap',
+          whiteSpace: 'nowrap', 
         }}
       >
         {duplicatedProducts.map((product, index) => (

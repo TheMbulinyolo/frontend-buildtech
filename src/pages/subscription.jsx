@@ -109,27 +109,15 @@ const Subscription = () => {
       {message && <p className="message">{message}</p>}
 
       <div className="subscription">
-        <div className="step-buttons">
-          <button
-            className={`btn ${stape === 1 ? 'active' : ''}`}
-            onClick={() => setStape(1)}
-          >
-            Inscription
-          </button>
-          <button
-            className={`btn ${stape === 2 ? 'active' : ''}`}
-            onClick={() => setStape(2)}
-          >
-            Payement
-          </button>
-        </div>
+
 
         <Link to="/" className="back-link"><ChevronLeft /></Link>
 
         {stape === 1 ? (
           <>
             <h1 className="title">Formulaire d'inscription</h1>
-            <form onSubmit={handleInscriptionSubmit}>
+
+            <form onSubmit={handleInscriptionSubmit} className='form_sub'>
               <div className="form-group">
                 <label>Prénom</label>
                 <input name="first_name" value={inscriptionForm.first_name} onChange={handleChangeInscription} required />
@@ -160,7 +148,7 @@ const Subscription = () => {
         ) : (
           <>
             <h1 className="title">Formulaire de payement</h1>
-            <div className="payement-section">
+            <div className='form_sub'>
               <p>
                 Après vous être inscrit, veuillez envoyer <strong>3$</strong> pour valider votre inscription :
               </p>
@@ -171,7 +159,7 @@ const Subscription = () => {
               <p>
                 Une fois le paiement effectué, remplissez les informations ci-dessous pour valider votre inscription.
               </p>
-              <form onSubmit={handlePayementSubmit}>
+              <form onSubmit={handlePayementSubmit} className='form_pay'>
                 <div className="form-group">
                   <label>Email du participant</label>
                   <input type="email" name="email" value={payementForm.email} onChange={handleChangePayement} required />
